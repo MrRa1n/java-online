@@ -1,1 +1,4 @@
 __pycache__/
+etc/database.cfg
+etc/java-online.xml
+schemas/

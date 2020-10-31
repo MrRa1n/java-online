@@ -3,11 +3,15 @@ import logging
 
 from logging.handlers import RotatingFileHandler
 from flask import Flask, url_for
-from flask_mongoengine import MongoEngine
+from db.db_config import DbInstance
 
 app = Flask(__name__)
-db = MongoEngine()
-db.init_app(app)
+# db = MongoEngine()
+# db.init_app(app)
+
+db = DbInstance(app)
+app.config['MONGODB_HOST'] = db.DB_URI
+
 
 @app.route('/')
 def root():
