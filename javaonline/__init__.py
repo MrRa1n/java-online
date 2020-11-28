@@ -3,35 +3,21 @@ import logging
 
 from logging.handlers import RotatingFileHandler
 from flask import Flask, url_for
-from db.db_config import DbInstance
+from config.database import DbInstance
+
+from javaonline.app import home
+from javaonline.blueprints.login.controllers import login
 
 app = Flask(__name__)
-# db = MongoEngine()
-# db.init_app(app)
+db = DbInstance()
 
-db = DbInstance(app)
-app.config['MONGODB_HOST'] = db.DB_URI
+app.register_blueprint(home, url_prefix='/') 
+app.register_blueprint(login, url_prefix='/login')
 
-
-@app.route('/')
-def root():
-    app.logger.info('Endpoint hit: ' + url_for('.root'))
-    return 'Hello, World!'
-
-@app.route('/config')
-def config():
-    app.logger.info('Endpoint hit: ' + url_for('.config'))
-    s = []
-    s.append('debug: ' + str(app.config['DEBUG']))
-    s.append('ip: ' + app.config['ip'])
-    s.append('port: ' + app.config['port'])
-    s.append('url: ' + app.config['url'])
-    return ', '.join(s)
-
-def init(app):
+def read_config(app):
     config = configparser.ConfigParser()
     try:
-        config_location = 'etc/defaults.cfg'
+        config_location = './config/etc/defaults.cfg'
         config.read(config_location)
         # Config
         app.config['DEBUG'] = config['config']['debug']
@@ -45,7 +31,7 @@ def init(app):
     except:
         print('Could not read config from: ', config_location)
 
-def logs(app):
+def configure_logger(app):
     log_path = app.config['log_location'] + app.config['log_file']
     file_handler = RotatingFileHandler(log_path, maxBytes=1024*1024*10, backupCount=1024)
     file_handler.setLevel(app.config['log_level'])
@@ -53,11 +39,3 @@ def logs(app):
     file_handler.setFormatter(formatter)
     app.logger.setLevel(app.config['log_level'])
     app.logger.addHandler(file_handler)
-
-init(app)
-logs(app)
-
-if __name__ == '__main__':
-    init(app)
-    logs(app)
-    app.run(host=app.config['ip'], port=app.config['port'])
