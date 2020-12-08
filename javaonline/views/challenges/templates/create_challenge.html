@@ -1,0 +1,52 @@
+{% extends 'layout.html' %}
+{% block body %}
+<div class="starter-template">
+    <div class="row">
+        <div class="col-sm-12">
+            <h1 class="mb-5 text-left">Create Challenge</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card text-left">
+                <div class="card-body">
+
+                    <form method="POST" action="/challenges/create">
+                        {{ form.hidden_tag() }}
+                        <div class="form-group">
+                            {{ form.title.label }}
+                            {{ form.title(size=20, class_="form-control") }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.instructions.label }}
+                            {{ form.instructions(class_="form-control") }}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.code.label }}
+                            {{ form.code(class_="form-control") }}
+                            <div id="editor" class="form-control"></div>
+                        </div>
+                        <div class="form-group">
+                            {{ form.tests.label }}
+                            {{ form.tests(class_="form-control") }}
+                            <div id="editor2" class="form-control"></div>
+                        </div>
+                        <div class="form-group">
+                            {{ form.resources.label }}
+                            {{ form.resources(class_="form-control") }}
+                        </div>
+                        {% for error in form.submit.errors %}
+                            <div class="alert alert-danger" role="alert">
+                                {{ error }}
+                            </div>
+                        {% endfor %}
+                        {{ form.submit(class_="btn btn-success") }}
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+{% endblock body %}

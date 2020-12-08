@@ -1,0 +1,63 @@
+{% extends 'layout.html' %}
+{% block body %}
+<div class="starter-template">
+    <h1 class="text-left">{{challenge.title}}</h1>
+    <p class="lead text-left">{{challenge.instructions}}</p>
+
+    <div class="row">
+
+        <div class="col-sm-12">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="code-tab" data-toggle="tab" href="#code" role="tab" aria-controls="code" aria-selected="true">Code</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="tests-tab" data-toggle="tab" href="#tests" role="tab" aria-controls="tests" aria-selected="false">Tests</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="code" role="tabpanel" aria-labelledby="code-tab">
+                    <div class="card text-left" style="border-top:0;">
+                        <div class="card-body">
+
+                                <div class="form-group">
+                                    <input id="challenge_id" name="challenge_id" type="hidden" value="{{ challenge.challenge_id }}">
+                                    <input id="code_hidden" name="code" type="hidden" value="{{ code }}">
+                                    <div id="editor" class="form-control"></div>
+                                </div>
+                                <input class="btn btn-success" id="solve_challenge" name="submit" type="submit" value="Solve">
+                            
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="tests" role="tabpanel" aria-labelledby="tests-tab">
+                    <div class="card text-left" style="border-top:0;">
+                        <div class="card-body">
+                            <input id="tests_hidden" name="code" type="hidden" value="{{ tests }}">
+                            <div id="editor2" class="form-control"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <ul class="nav nav-tabs mt-4" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="output-tab" data-toggle="tab" href="#outputTabContent" role="tab" aria-controls="output" aria-selected="true">Output</a>
+                </li>
+            </ul>
+
+            <div class="tab-content" id="outputContent">
+                <div class="tab-pane fade show active" id="outputTabContent" role="tabpanel" aria-labelledby="output-tab">
+                    <div class="card text-left" style="border-top:0;">
+                        <div class="card-body">
+                            <div id="output" class="form-control"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div> 
+{% endblock body %}

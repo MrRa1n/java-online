@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+{% block body %}
+<div class="starter-template">
+    <div class="row">
+        <div class="col-sm-6">
+            <h1 class="mb-5 text-left">Challenges</h1>
+        </div>
+        <div class="col-sm-6 text-right">
+            <a href="{{ url_for('challenges.create_challenge') }}" class="btn btn-success">Create Challenge</a>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-sm-12">
+            {% for challenge in challenges %}
+            <div class="card text-left mb-3">
+                <div class="card-body row">
+
+                    <div class="col-10">
+                        <h5 class="card-title">{{challenge.title}}</h5>
+                        <p class="card-text">{{challenge.instructions}}</p>
+                    </div>
+                    <div class="col-2 align-self-center text-right">
+                        <a href="{{ url_for('challenges.challenge', challenge=challenge.challenge_id) }}" class="btn btn-success">Attempt</a>
+                    </div>
+                    
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div> 
+{% endblock body %}

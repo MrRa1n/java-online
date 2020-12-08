@@ -1,0 +1,14 @@
+__pycache__/
+etc/database.cfg
+etc/java-online.xml
+schemas/
+config/etc/
+db/*
+!db/base.py
+!db/tables.sql
+var/
+code/*
+!code/Challenge.java
+!code/ChallengeTest.java
+.DS_Store
+.flaskenv
